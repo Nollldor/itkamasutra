@@ -1,5 +1,7 @@
 import {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 import React from "react";
+import {IconButton, TextField} from "@material-ui/core";
+import {AddCircle} from "@material-ui/icons";
 
 type AddItemFullInputPropsType = {
     itemID: string
@@ -34,13 +36,22 @@ export const AddItemFullInput: FC<AddItemFullInputPropsType> = ({itemID, addItem
     return (
 
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyDown={onKeyDownHandler}
-                   className={error ? "error" : ""}
+            <TextField
+                error={!!error}
+                label="Title"
+                helperText={error}
+                size={"small"}
+                variant="outlined"
+                id="outlined-basic"
+                value={title}
+                onChange={onChangeHandler}
+                onKeyDown={onKeyDownHandler}
+                /*className={error ? "error" : ""}*/
             />
-            <button onClick={addItemHandler}>+</button>
-            {error && <div className="error-message">{error}</div>}
+            <IconButton size={"small"} onClick={addItemHandler}>
+                <AddCircle/>
+            </IconButton>
+            {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
     )
 }
