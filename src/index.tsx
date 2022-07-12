@@ -6,19 +6,19 @@ import * as serviceWorker from './serviceWorker';
 import {createTheme, ThemeProvider} from "@material-ui/core";
 import {teal, yellow} from "@material-ui/core/colors";
 
-const theme = createTheme({
+/*const theme = createTheme({
     palette: {
         primary: teal,
         secondary: yellow,
         type: "dark"
     }
-})
+})*/
 
 
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <App/>
-    </ThemeProvider>
+    /*<ThemeProvider theme={theme}>*/
+    <App/>
+    /*</ThemeProvider>*/
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
