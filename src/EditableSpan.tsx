@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, memo, useState} from "react";
 import React from "react";
 import {TextField} from "@material-ui/core";
 
@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
     updateTitle: (title: string) => void
 }
 
-export const EditableSpan: FC<EditableSpanPropsType> = ({title, updateTitle}) => {
+export const EditableSpan: FC<EditableSpanPropsType> = memo(({title, updateTitle}) => {
 
     const [editMode, setEditMode] = useState(false)
     const [titleES, setTitleES] = useState(title)
@@ -36,4 +36,4 @@ export const EditableSpan: FC<EditableSpanPropsType> = ({title, updateTitle}) =>
                 onBlur={offEditMode}
             />
     )
-}
+})

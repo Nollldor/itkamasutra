@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, KeyboardEvent, useState} from "react";
+import {ChangeEvent, FC, KeyboardEvent, memo, useState} from "react";
 import React from "react";
 import {IconButton, TextField} from "@material-ui/core";
 import {AddCircle} from "@material-ui/icons";
@@ -8,16 +8,15 @@ type AddItemFullInputPropsType = {
     addItem: (itemID: string, title: string) => void
 }
 
-export const AddItemFullInput: FC<AddItemFullInputPropsType> = ({itemID, addItem}) => {
+export const AddItemFullInput: FC<AddItemFullInputPropsType> = memo(({itemID, addItem}) => {
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        error && setError(null);
         if (e.key === "Enter") {
             addItemHandler();
         }
@@ -54,4 +53,4 @@ export const AddItemFullInput: FC<AddItemFullInputPropsType> = ({itemID, addItem
             {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
     )
-}
+})
