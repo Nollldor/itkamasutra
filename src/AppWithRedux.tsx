@@ -19,6 +19,7 @@ import {TasksStateType, TodolistType} from "./App";
 export type FilterValuesType = "all" | "active" | "completed";
 
 export function AppWithRedux() {
+    console.log("here")
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
