@@ -32,25 +32,11 @@ function AppWithRedux() {
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch();
-    const removeTask = useCallback((id: string, todolistId: string) => {
-        const action = removeTaskAC(id, todolistId);
-        dispatch(action);
-    },[dispatch])
 
     const addTask = useCallback((title: string, todolistId: string) => {
         const action = addTaskAC(title, todolistId);
         dispatch(action);
     }, [dispatch])
-
-    const changeTaskStatus = useCallback((id: string, isDone: boolean, todolistId: string) => {
-        const action = changeTaskStatusAC(id, isDone, todolistId);
-        dispatch(action);
-    },[dispatch])
-
-    const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
-        dispatch(action);
-    },[dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         const action = changeTodolistFilterAC(todolistId, value);
@@ -108,13 +94,10 @@ function AppWithRedux() {
                                         id={tl.id}
                                         title={tl.title}
                                         tasks={tasksForTodolist}
-                                        removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
-                                        changeTaskStatus={changeTaskStatus}
                                         filter={tl.filter}
                                         removeTodolist={removeTodolist}
-                                        changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}
                                     />
                                 </Paper>
