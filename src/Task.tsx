@@ -1,48 +1,39 @@
-import React, {ChangeEvent, FC, useCallback} from "react";
-import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "./EditableSpan";
-import {Delete} from "@mui/icons-material";
+import React, { ChangeEvent, useCallback } from 'react'
+import { EditableSpan } from './EditableSpan'
+import { Delete } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox';
+import { TaskType } from './Todolist'
 
 type TaskPropsType = {
+    task: TaskType
     todolistId: string
-    taskId: string
-    isDone: boolean
-    title: string
-    removeTask: (taskId: string, todolistId: string) => void
     changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
 }
+export const Task = React.memo((props: TaskPropsType) => {
+    const onClickHandler = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.task.id, props.todolistId]);
 
-export const Task:FC<TaskPropsType> = ({
-                                           todolistId,
-                                           taskId,
-                                           isDone,
-                                           title,
-                                           removeTask,
-                                           changeTaskStatus,
-                                           changeTaskTitle
+    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        let newIsDoneValue = e.currentTarget.checked
+        props.changeTaskStatus(props.task.id, newIsDoneValue, props.todolistId)
+    }, [props.task.id, props.todolistId]);
 
-                                       }) => {
-    const onClickHandler = () => removeTask(taskId, todolistId)
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked;
-        changeTaskStatus(taskId, newIsDoneValue, todolistId);
-    }
     const onTitleChangeHandler = useCallback((newValue: string) => {
-        changeTaskTitle(taskId, newValue, todolistId);
-    },[changeTaskTitle, todolistId])
+        props.changeTaskTitle(props.task.id, newValue, props.todolistId)
+    }, [props.task.id, props.todolistId]);
 
-
-    return <div className={isDone ? "is-done" : ""}>
+    return <div key={props.task.id} className={props.task.isDone ? 'is-done' : ''}>
         <Checkbox
-            checked={isDone}
+            checked={props.task.isDone}
             color="primary"
             onChange={onChangeHandler}
         />
 
-        <EditableSpan value={title} onChange={onTitleChangeHandler} />
+        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
         <IconButton onClick={onClickHandler}>
-            <Delete />
+            <Delete/>
         </IconButton>
     </div>
-}
+})
