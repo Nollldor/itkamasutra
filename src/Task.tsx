@@ -1,10 +1,9 @@
-import React, {ChangeEvent, useCallback} from 'react'
-import {EditableSpan} from './EditableSpan'
-import {Delete} from '@mui/icons-material';
+import React, { ChangeEvent, useCallback } from 'react'
+import { EditableSpan } from './EditableSpan'
+import { Delete } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
-import {TaskStatuses, TaskType} from "./api/api";
-
+import { TaskStatuses, TaskType } from './api/todolists-api'
 
 type TaskPropsType = {
     task: TaskType
@@ -18,7 +17,7 @@ export const Task = React.memo((props: TaskPropsType) => {
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
-        props.changeTaskStatus(props.task.id, newIsDoneValue? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
+        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
     }, [props.task.id, props.todolistId]);
 
     const onTitleChangeHandler = useCallback((newValue: string) => {
