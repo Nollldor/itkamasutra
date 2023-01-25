@@ -15,6 +15,7 @@ import { Menu } from '@mui/icons-material';
 import {LinearProgress} from "@mui/material";
 import {useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackBar/ErrorSnackbar";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             </AppBar>
             <Container fixed>
                 <TodolistsList/>
+                <ErrorSnackbar/>
             </Container>
         </div>
     )
