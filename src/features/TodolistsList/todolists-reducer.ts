@@ -60,6 +60,9 @@ export const fetchTodolistsTC = () => {
                 dispatch(setTodolistsAC(res.data))
                 dispatch(appSetStatusAC('succeeded'))
             })
+            .catch(e => {
+                handleServerNetworkError(e, dispatch)
+            })
     }
 }
 export const removeTodolistTC = (todolistId: string) => {
@@ -99,13 +102,19 @@ export const addTodolistTC = (title: string) => async (dispatch: Dispatch<Action
     }
 }
 
-export const changeTodolistTitleTC = (id: string, title: string) => {
+export const changeTodolistTitleTC = (todolistId: string, title: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(appSetStatusAC('loading'))
-        todolistsAPI.updateTodolist(id, title)
+        todolistsAPI.updateTodolist(todolistId, title)
             .then((res) => {
-                dispatch(changeTodolistTitleAC(id, title))
+                dispatch(changeTodolistTitleAC(todolistId, title))
                 dispatch(appSetStatusAC('succeeded'))
+            })
+            .catch((e: AxiosError<{ message: string }>) => {
+                const error = e.response?.data ? e.response?.data.message : e.message
+                dispatch(appSetStatusAC('failed'))
+                dispatch(changeEntityStatusAC(todolistId, 'failed'))
+                dispatch(appSetErrorAC(error))
             })
     }
 }
