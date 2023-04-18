@@ -1,8 +1,8 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer'
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from 'api/todolists-api'
 import {handleServerAppError, handleServerNetworkError} from 'utils/error-utils'
 import {AppThunk} from "app/store";
 import {appActions} from "app/app-reducer";
+import {todolistActions} from "features/TodolistsList/todolists-reducer";
 
 const initialState: TasksStateType = {}
 
@@ -133,8 +133,8 @@ type ActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof updateTaskAC>
-    | AddTodolistActionType
-    | RemoveTodolistActionType
-    | SetTodolistsActionType
+    | typeof todolistActions.addTodolist
+    | typeof todolistActions.removeTodolist
+    | typeof todolistActions.setTodolists
     | ReturnType<typeof setTasksAC>
 
