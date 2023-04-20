@@ -10,20 +10,24 @@ const slice = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        removeTodolist: (state, action: PayloadAction<{ todoId: string }>) => {
-            return state.filter(tl => tl.id != action.payload.todoId)
+        removeTodolist: (state, action: PayloadAction<{ id: string }>) => {
+            const index = state.findIndex(todo => todo.id === action.payload.id)
+            if (index !== -1) state.splice(index, 1)
         },
         addTodolist: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
-            state.push({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
+            state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
         },
-        changeTodolistTitle: (state, action: PayloadAction<{ title: string, todoId: string }>) => {
-            return state.map(tl => tl.id === action.payload.todoId ? {...tl, title: action.payload.todoId} : tl)
+        changeTodolistTitle: (state, action: PayloadAction<{ title: string, id: string }>) => {
+            const todo = state.find(todo => todo.id === action.payload.id)
+            if(todo) todo.title = action.payload.title
         },
-        changeTodolistFilter: (state, action: PayloadAction<{ filter: FilterValuesType, todoID: string }>) => {
-            return state.map(tl => tl.id === action.payload.todoID ? {...tl, filter: action.payload.filter} : tl)
+        changeTodolistFilter: (state, action: PayloadAction<{ filter: FilterValuesType, id: string }>) => {
+            const todo = state.find(todo => todo.id === action.payload.id)
+            if(todo) todo.filter = action.payload.filter
         },
-        changeTodolistEntityStatus: (state, action: PayloadAction<{ todoId: string, status: RequestStatusType }>) => {
-            return state.map(tl => tl.id === action.payload.todoId ? {...tl, entityStatus: action.payload.status} : tl)
+        changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string, entityStatus: RequestStatusType }>) => {
+            const todo = state.find(todo => todo.id === action.payload.id)
+            if(todo) todo.entityStatus = action.payload.entityStatus
         },
         setTodolists: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
             return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
@@ -53,10 +57,10 @@ export const removeTodolistTC = (todolistId: string): AppThunk => {
         //изменим глобальный статус приложения, чтобы вверху полоса побежала
         dispatch(appActions.setStatus({status: 'loading'}))
         //изменим статус конкретного тудулиста, чтобы он мог задизеблить что надо
-        dispatch(todolistActions.changeTodolistEntityStatus({todoId: todolistId, status: 'loading'}))
+        dispatch(todolistActions.changeTodolistEntityStatus({id: todolistId, entityStatus: 'loading'}))
         todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
-                dispatch(todolistActions.removeTodolist({todoId: todolistId}))
+                dispatch(todolistActions.removeTodolist({id: todolistId}))
                 //скажем глобально приложению, что асинхронная операция завершена
                 dispatch(appActions.setStatus({status: 'succeeded'}))
             })
@@ -76,7 +80,7 @@ export const changeTodolistTitleTC = (id: string, title: string): AppThunk => {
     return (dispatch) => {
         todolistsAPI.updateTodolist(id, title)
             .then((res) => {
-                dispatch(todolistActions.changeTodolistTitle({todoId: id, title}))
+                dispatch(todolistActions.changeTodolistTitle({id: id, title}))
             })
     }
 }
