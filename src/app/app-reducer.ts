@@ -25,7 +25,7 @@ const slice = createSlice({
         setIsInitialised: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
             state.isInitialized = action.payload.isInitialized
         }
-    }
+    },
 })
 
 export const appReducer = slice.reducer

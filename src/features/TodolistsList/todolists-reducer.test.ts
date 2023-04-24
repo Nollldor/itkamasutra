@@ -2,6 +2,7 @@ import {FilterValuesType, todolistActions, TodolistDomainType, todolistReducer} 
 import {v1} from 'uuid'
 import {TodolistType} from 'api/todolists-api'
 import {RequestStatusType} from 'app/app-reducer'
+import {taskActions} from "features/TodolistsList/tasks-reducer";
 
 let todolistId1: string
 let todolistId2: string
@@ -77,6 +78,16 @@ test('correct entity status of todolist should be changed', () => {
 
     expect(endState[0].entityStatus).toBe('idle')
     expect(endState[1].entityStatus).toBe(newStatus)
+})
+
+
+test('all todolists should be deleted', () => {
+
+    const action = taskActions.resetState({})
+
+    const endState = todolistReducer(startState, action)
+
+    expect(endState.length).toBe(0)
 })
 
 

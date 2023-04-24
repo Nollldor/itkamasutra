@@ -149,3 +149,11 @@ test('tasks should be added for todolist', () => {
     expect(endState["todolistId2"].length).toBe(0)
 })
 
+test('all tasks should be deleted', () => {
+    const action = taskActions.resetState({});
+
+    const endState = taskReducer(startState, action)
+
+    expect(Object.keys(endState).length).toBe(0);
+
+});

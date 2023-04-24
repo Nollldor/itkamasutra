@@ -3,6 +3,7 @@ import {handleServerAppError, handleServerNetworkError} from 'utils/error-utils'
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "app/store";
 import {appActions} from "app/app-reducer";
+import {taskActions} from "features/TodolistsList/tasks-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -18,7 +19,7 @@ const slice = createSlice({
     reducers: {
         setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
             state.isLoggedIn = action.payload.isLoggedIn
-        }
+        },
     }
 })
 
@@ -47,7 +48,9 @@ export const logoutTC = (): AppThunk => (dispatch) => {
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
+
                 dispatch(appActions.setStatus({status: 'succeeded'}))
+                dispatch(taskActions.resetState({}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }

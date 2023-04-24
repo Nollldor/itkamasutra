@@ -3,6 +3,7 @@ import {appActions, RequestStatusType} from 'app/app-reducer'
 import {handleServerNetworkError} from 'utils/error-utils'
 import {AppThunk} from 'app/store';
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {taskActions} from "features/TodolistsList/tasks-reducer";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -19,19 +20,25 @@ const slice = createSlice({
         },
         changeTodolistTitle: (state, action: PayloadAction<{ title: string, id: string }>) => {
             const todo = state.find(todo => todo.id === action.payload.id)
-            if(todo) todo.title = action.payload.title
+            if (todo) todo.title = action.payload.title
         },
         changeTodolistFilter: (state, action: PayloadAction<{ filter: FilterValuesType, id: string }>) => {
             const todo = state.find(todo => todo.id === action.payload.id)
-            if(todo) todo.filter = action.payload.filter
+            if (todo) todo.filter = action.payload.filter
         },
         changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string, entityStatus: RequestStatusType }>) => {
             const todo = state.find(todo => todo.id === action.payload.id)
-            if(todo) todo.entityStatus = action.payload.entityStatus
+            if (todo) todo.entityStatus = action.payload.entityStatus
         },
         setTodolists: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
             return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(taskActions.resetState, (state, action) => {
+                return initialState
+            });
     }
 })
 
