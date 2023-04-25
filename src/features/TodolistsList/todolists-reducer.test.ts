@@ -83,7 +83,7 @@ test('correct entity status of todolist should be changed', () => {
 
 test('all todolists should be deleted', () => {
 
-    const action = taskActions.resetState({})
+    const action = taskActions.resetState()
 
     const endState = todolistReducer(startState, action)
 

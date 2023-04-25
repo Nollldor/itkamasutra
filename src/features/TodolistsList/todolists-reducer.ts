@@ -36,7 +36,7 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(taskActions.resetState, (state, action) => {
+            .addCase(taskActions.resetState, () => {
                 return initialState
             });
     }

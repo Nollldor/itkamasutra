@@ -150,7 +150,7 @@ test('tasks should be added for todolist', () => {
 })
 
 test('all tasks should be deleted', () => {
-    const action = taskActions.resetState({});
+    const action = taskActions.resetState();
 
     const endState = taskReducer(startState, action)
 
