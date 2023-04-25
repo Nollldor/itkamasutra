@@ -1,11 +1,11 @@
 import React from 'react'
-import {useFormik} from 'formik'
-import {useSelector} from 'react-redux'
-import {loginTC} from './auth-reducer'
-import {Navigate} from 'react-router-dom'
-import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
-import {selectIsLoggedIn} from "features/auth/auth.selectors";
+import { useFormik } from 'formik'
+import { useSelector } from 'react-redux'
+import { loginTC } from 'features/auth/auth.reducer'
+import { Navigate } from 'react-router-dom'
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from '@mui/material'
+import { selectIsLoggedIn } from 'features/auth/auth.selectors';
 
 export const Login = () => {
     const dispatch = useAppDispatch()
@@ -37,7 +37,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={"/"}/>
+        return <Navigate to={"/"} />
     }
 
 
@@ -48,7 +48,7 @@ export const Login = () => {
                     <FormLabel>
                         <p>
                             To log in get registered <a href={'https://social-network.samuraijs.com/'}
-                                                        target={'_blank'} rel="noreferrer">here</a>
+                                                        target={'_blank'}>here</a>
                         </p>
                         <p>
                             or use common test account credentials:
