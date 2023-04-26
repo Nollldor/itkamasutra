@@ -73,12 +73,9 @@ test('correct task should be added to correct array', () => {
 });
 
 test('status of specified task should be changed', () => {
+    const args = {taskId: '2', domainModel: {status: TaskStatuses.New}, todolistId: 'todolistId2'}
     const action = tasksThunks.updateTask.fulfilled(
-        {taskId: '2', domainModel: {status: TaskStatuses.New}, todolistId: 'todolistId2'}, 'requestId', {
-            taskId: '2',
-            domainModel: {status: TaskStatuses.New},
-            todolistId: 'todolistId2'
-        });
+        args, 'requestId', args);
 
     const endState = tasksReducer(startState, action)
 
@@ -87,12 +84,13 @@ test('status of specified task should be changed', () => {
 });
 
 test('title of specified task should be changed', () => {
-    const action = tasksThunks.updateTask.fulfilled({
+    const args = {
         taskId: '2',
         domainModel: {title: 'yogurt'},
         todolistId: 'todolistId2'
-    }, 'requestId', {taskId: '2', domainModel: {title: 'yogurt'}, todolistId: 'todolistId2'});
+    }
 
+    const action = tasksThunks.updateTask.fulfilled(args, 'requestId', args);
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId1'][1].title).toBe('JS');
