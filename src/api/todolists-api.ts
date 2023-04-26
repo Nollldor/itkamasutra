@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {UpdateDomainTaskModelType} from "features/TodolistsList/tasks.reducer";
 
 const settings = {
     withCredentials: true,
@@ -38,8 +39,8 @@ export const todolistsAPI = {
     createTask(arg: AddTaskArgType) {
         return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title});
     },
-    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
+    updateTask(arg: UpdateTaskArgType) {
+        return instance.put<ResponseType<TaskType>>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`, arg.domainModel);
     }
 }
 
@@ -121,3 +122,4 @@ type GetTasksResponse = {
 }
 
 export type AddTaskArgType = { title: string, todolistId: string }
+export type UpdateTaskArgType = {todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType}
