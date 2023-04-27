@@ -11,7 +11,7 @@ import {
 import {removeTaskTC, tasksThunks} from 'features/TodolistsList/tasks.reducer'
 import {TaskStatuses} from 'api/todolists-api'
 import {Grid, Paper} from '@mui/material'
-import {AddItemForm} from 'components/AddItemForm/AddItemForm'
+import {AddItemForm} from 'common/components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
 import {Navigate} from 'react-router-dom'
 import {useAppDispatch} from 'hooks/useAppDispatch';
