@@ -3,10 +3,9 @@ import {useSelector} from 'react-redux'
 import {
     addTodolistTC,
     changeTodolistTitleTC,
-    fetchTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
-    todolistsActions
+    todolistsActions, todolistsThunks
 } from 'features/TodolistsList/todolists.reducer'
 import {tasksThunks} from 'features/TodolistsList/tasks.reducer'
 import {TaskStatuses} from 'api/todolists-api'
@@ -34,7 +33,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         if (demo || !isLoggedIn) {
             return;
         }
-        const thunk = fetchTodolistsTC()
+        const thunk = todolistsThunks.fetchTodolists()
         dispatch(thunk)
     }, [])
 
