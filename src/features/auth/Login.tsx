@@ -1,11 +1,13 @@
 import React from 'react'
-import {useFormik} from 'formik'
+import {FormikHelpers, useFormik} from 'formik'
 import {useSelector} from 'react-redux'
 import {Navigate} from 'react-router-dom'
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
 import {authThunks} from 'features/auth/auth.reducer'
 import {useAppDispatch} from 'common/hooks';
 import {selectIsLoggedIn} from 'features/auth/auth.selectors';
+import {LoginParamsType} from "features/auth/auth.api";
+import {ResponseType} from "common/types/common.types";
 
 export const Login = () => {
     const dispatch = useAppDispatch()
@@ -13,7 +15,7 @@ export const Login = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const formik = useFormik({
-        validate: (values) => {
+        /*validate: (values) => {
             if (!values.email) {
                 return {
                     email: 'Email is required'
@@ -25,14 +27,20 @@ export const Login = () => {
                 }
             }
 
-        },
+        },*/
         initialValues: {
             email: '',
             password: '',
             rememberMe: false
         },
-        onSubmit: values => {
-            dispatch(authThunks.login(values));
+        onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+            dispatch(authThunks.login(values))
+                .unwrap()
+                .catch((reason: ResponseType) => {
+                    reason.fieldsErrors.forEach((fieldsError)=> {
+                        formikHelpers.setFieldError(fieldsError.field, fieldsError.error)
+                    })
+                })
         },
     })
 
