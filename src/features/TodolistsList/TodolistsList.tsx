@@ -33,7 +33,7 @@ export const TodolistsList = () => {
 		if (!isLoggedIn) {
 			return;
 		}
-		fetchTodolists()
+		fetchTodolists({})
 	}, [])
 
 	const removeTask = useCallback(function (taskId: string, todolistId: string) {

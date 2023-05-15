@@ -3,7 +3,7 @@ import {FormikHelpers, useFormik} from 'formik'
 import {useSelector} from 'react-redux'
 import {Navigate} from 'react-router-dom'
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
-import {useActions, useAppDispatch} from 'common/hooks';
+import {useActions} from 'common/hooks';
 import {selectIsLoggedIn} from 'features/auth/auth.selectors';
 import {authThunks} from 'features/auth/auth.reducer';
 import {LoginParamsType} from 'features/auth/auth.api';
