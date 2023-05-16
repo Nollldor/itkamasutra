@@ -30,8 +30,8 @@ export const Task = React.memo((props: TaskPropsType) => {
     }
 
 
-    const changeTaskTitleHandler = (newValue: string) => {
-        updateTask({taskId: props.task.id, domainModel: {title: newValue}, todolistId: props.todolistId})
+    const changeTaskTitleHandler = (title: string) => {
+        updateTask({taskId: props.task.id, domainModel: {title}, todolistId: props.todolistId})
     }
 
     return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}>
