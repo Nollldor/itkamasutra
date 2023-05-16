@@ -36,10 +36,6 @@ export const TodolistsList = () => {
 		fetchTodolists({})
 	}, [])
 
-	const removeTask = useCallback(function (taskId: string, todolistId: string) {
-		removeTaskThunk({taskId, todolistId})
-	}, [])
-
 	const addTask = useCallback(function (title: string, todolistId: string) {
 		addTaskThunk({title, todolistId})
 	}, [])
@@ -86,7 +82,6 @@ export const TodolistsList = () => {
 							<Todolist
 								todolist={tl}
 								tasks={allTodolistTasks}
-								removeTask={removeTask}
 								changeFilter={changeFilter}
 								addTask={addTask}
 								changeTaskStatus={changeStatus}
