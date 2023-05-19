@@ -36,7 +36,7 @@ beforeEach(() => {
 	};
 });
 
-test('correct task should be deleted from correct array', () => {
+test('correct Task should be deleted from correct array', () => {
 	const args = {taskId: '2', todolistId: 'todolistId2'}
 	const action = tasksThunks.removeTask.fulfilled(args, 'requestId', args);
 
@@ -47,7 +47,7 @@ test('correct task should be deleted from correct array', () => {
 	expect(endState['todolistId2'].every(t => t.id !== '2')).toBeTruthy();
 });
 
-test('correct task should be added to correct array', () => {
+test('correct Task should be added to correct array', () => {
 	//const action = addTaskAC("juce", "todolistId2");
 
 	const task = {
@@ -77,7 +77,7 @@ test('correct task should be added to correct array', () => {
 	expect(endState['todolistId2'][0].status).toBe(TaskStatuses.New);
 });
 
-test('status of specified task should be changed', () => {
+test('status of specified Task should be changed', () => {
 	const args = {taskId: '2', domainModel: {status: TaskStatuses.New}, todolistId: 'todolistId2'}
 	const action = tasksThunks.updateTask.fulfilled(args, 'requestId', args);
 
@@ -87,7 +87,7 @@ test('status of specified task should be changed', () => {
 	expect(endState['todolistId2'][1].status).toBe(TaskStatuses.New);
 });
 
-test('title of specified task should be changed', () => {
+test('title of specified Task should be changed', () => {
 	const args = {taskId: '2', domainModel: {title: 'yogurt'}, todolistId: 'todolistId2'}
 	const action = tasksThunks.updateTask.fulfilled(args, 'requestId', args);
 
