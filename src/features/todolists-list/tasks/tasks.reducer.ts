@@ -46,7 +46,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>
         const state = getState()
         const task = state.tasks[arg.todolistId].find(t => t.id === arg.taskId)
         if (!task) {
-            dispatch(appActions.setAppError({error: 'Task not found in the state'}))
+            dispatch(appActions.setAppError({error: 'task not found in the state'}))
             return rejectWithValue(null)
         }
 
