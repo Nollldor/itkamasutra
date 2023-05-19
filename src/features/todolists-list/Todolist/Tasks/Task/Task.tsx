@@ -6,7 +6,7 @@ import {TaskStatuses} from 'common/enums';
 import {useActions} from "common/hooks";
 import {tasksThunks} from "features/todolists-list/tasks/tasks.reducer";
 import {TaskType} from "features/todolists-list/tasks/tasks.api";
-import styles from "./Task.module.css"
+import styles from "features/todolists-list/Todolist/Tasks/Task/Task.module.css"
 
 type Props = {
     task: TaskType
