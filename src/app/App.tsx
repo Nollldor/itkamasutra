@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, {useEffect} from 'react'
+import {useSelector} from 'react-redux'
+import {HashRouter, Route, Routes} from 'react-router-dom'
 import {
 	AppBar,
 	Button,
@@ -11,15 +11,15 @@ import {
 	Toolbar,
 	Typography
 } from '@mui/material';
-import { Menu } from '@mui/icons-material'
-import { Login } from 'features/auth/Login/Login'
+import {Menu} from '@mui/icons-material'
+import {Login} from 'features/auth/Login/Login'
 import './App.css'
-import { TodolistsList } from 'features/todolists-list/TodolistsList'
-import { ErrorSnackbar } from 'common/components'
-import { useActions } from 'common/hooks';
-import { selectIsLoggedIn } from 'features/auth/auth.selectors';
-import { selectAppStatus, selectIsInitialized } from 'app/app.selectors';
-import { authThunks } from 'features/auth/auth.reducer';
+import {TodolistsList} from 'features/todolists-list/TodolistsList'
+import {ErrorSnackbar} from 'common/components'
+import {useActions} from 'common/hooks';
+import {selectIsLoggedIn} from 'features/auth/auth.selectors';
+import {selectAppStatus, selectIsInitialized} from 'app/app.selectors';
+import {authThunks} from 'features/auth/auth.reducer';
 
 function App() {
 	const status = useSelector(selectAppStatus)
@@ -42,7 +42,7 @@ function App() {
 	}
 
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<div className="App">
 				<ErrorSnackbar/>
 				<AppBar position="static">
@@ -64,7 +64,7 @@ function App() {
 					</Routes>
 				</Container>
 			</div>
-		</BrowserRouter>
+		</HashRouter>
 	)
 }
 
